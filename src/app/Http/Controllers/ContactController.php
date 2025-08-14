@@ -10,6 +10,12 @@ use App\Models\Category;
 class ContactController extends Controller
 {
 
+    // 入力フォーム
+    public function index()
+    {
+        return view('index');
+    }
+
     // 入力内容確認ページ
     public function confirm(ContactRequest $request)
     {
