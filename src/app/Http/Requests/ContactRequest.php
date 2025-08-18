@@ -24,16 +24,16 @@ class ContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'gender' => ['required'],
-            'email' => ['required', 'email'],
-            'tel1' => ['required', 'max:5'],
-            'tel2' => ['required', 'max:5'],
-            'tel3' => ['required', 'max:5'],
-            'address' => ['required'],
-            'content' => ['required'],
-            'detail' => ['required', 'max:120'],
+            'first_name'   => ['required'],
+            'last_name'    => ['required'],
+            'gender'       => ['required'],
+            'email'        => ['required', 'email'],
+            'tel_1'         => ['required', 'digits_between:1,5'],
+            'tel_2'         => ['required', 'digits_between:1,5'],
+            'tel_3'         => ['required', 'digits_between:1,5'],
+            'address'      => ['required'],
+            'category_id'  => ['required'],
+            'detail'       => ['required', 'max:120'],
         ];
     }
 
@@ -45,17 +45,21 @@ class ContactRequest extends FormRequest
             'gender.required' => '性別を入力してください',
             'email.required' => 'メールアドレスを入力してください',
             'email.email' => 'メールアドレスはメール形式を入力してください',
-            'tel1.required' => '電話番号を入力してください',
-            'tel1.max' => '電話番号は5桁までの数字で入力してください',
-            'tel2.required' => '電話番号を入力してください',
-            'tel2.max' => '電話番号は5桁までの数字で入力してください',
-            'tel3.required' => '電話番号を入力してください',
-            'tel3.max' => '電話番号は5桁までの数字で入力してください',
             'address.required' => '住所を入力してください',
-            'content.required' => 'お問い合わせの種類を入力してください',
+            'category_id.required' => 'お問い合わせの種類を選択してください',
             'detail.required' => 'お問い合わせ内容を入力してください',
             'detail.max' => 'お問い合わせ内容は120文字以内で入力してください',
         ];
     }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $tel = $this->input('tel_1') . $this->input('tel_2') . $this->input('tel_3');
+
+            if (!preg_match('/^\d+$/', $tel)) {
+                $validator->errors()->add('tel', '電話番号は半角数字で入力してください');
+            }
+        });
+    }
 }
-// バリエーション

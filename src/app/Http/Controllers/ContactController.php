@@ -2,48 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Category;
 use App\Models\Contact;
 use App\Http\Requests\ContactRequest;
-use App\Models\Category;
 
 class ContactController extends Controller
 {
-
-    // 入力フォーム
     public function index()
     {
-        return view('index');
+        $categories = Category::all();
+        return view('index', compact('categories'));
     }
 
-    // 入力内容確認ページ
     public function confirm(ContactRequest $request)
     {
-        $contacts = Contact::with('category')->get();
-
-        $categories =  Category::all();
-        // dd($contacts);
-
-        return view('confirm', compact('contacts', 'categories'));
+        $contacts = $request->all();
+        $category =  Category::find($request->category_id);
+        return view('confirm', compact('contacts', 'category'));
     }
 
-    // DBに保存とthanksページ
     public function store(ContactRequest $request)
     {
-        $contact = $request->only(['category_id', 'first_name', 'last_name', 'gender', 'email', 'tel1', 'tel2', 'tel3', 'address', 'building', 'detail']);
-        Contact::create($contact);
-
-        return redirect('thanks');
-    }
-
-    public function complete(Request $request)
-    {
-        // 修正ボタンをクリックされた場合
-        if ($request->input('back') == 'back') {
-            return redirect('/')
-                ->withInput();
+        if ($request->input('back')) {
+            return redirect('/')->withInput();
         }
 
-        return view('/');
+        // 3つの電話番号を結合して一つの文字列にする
+        $tel = $request->tel_1 . $request->tel_2 . $request->tel_3;
+
+        // データベースに保存
+        Contact::create([
+            'category_id' => $request->category_id,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'gender' => $request->gender,
+            'email' => $request->email,
+            'tel' => $tel, // 結合した$tel変数を直接指定
+            'address' => $request->address,
+            'building' => $request->building,
+            'detail' => $request->detail,
+        ]);
+        return redirect('thanks');
     }
 }

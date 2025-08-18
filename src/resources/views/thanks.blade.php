@@ -5,13 +5,15 @@
 @endsection
 
 @section('content')
-<div class="thanks__content">
-    <div class="thanks__heading">
-        <h2>お問い合わせありがとうございます</h2>
-        <div class="form__button">
-            <button class="form__button-submit" type="submit">HOME</button>
-        </div>
-        <div class="back-text">Thank you</div>
+<div class="thanks-page">
+    <div class="thanks-page__inner">
+        <p class="thanks-page__message">お問い合わせありがとうございました</p>
+        <form class="thanks-page__form" action="/" method="get">
+            <button class="thanks-page__btn btn">HOME</button>
+        </form>
     </div>
+</div>
+<div class="thanks-page-bg__inner">
+    <span class="thanks-page-bg__text">Thank you</span>
 </div>
 @endsection

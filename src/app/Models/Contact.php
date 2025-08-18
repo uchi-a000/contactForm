@@ -14,7 +14,7 @@ class Contact extends Model
         'last_name',
         'gender',
         'email',
-        'tel1', 'tel2', 'tel3',
+        'tel',
         'address',
         'building',
         'detail'
@@ -24,12 +24,4 @@ class Contact extends Model
     {
         return $this->belongsTo(Category::class);
     }
-
-    // public function store($request)
-    // {
-    //     $inputs = $request->validate([
-    //         'category_id' => 'required',
-    //     ]);
-    //     $this->category_id = $inputs['category_id'];
-    // }
 }

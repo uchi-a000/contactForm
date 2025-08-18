@@ -3,9 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ContactController;
-use App\Models\Category;
-use App\Models\Contact;
-
 use App\Http\Controllers\AuthController;
 
 /*
@@ -19,17 +16,16 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/', [ContactController::class, 'index']);
 Route::post('/confirm', [ContactController::class, 'confirm']);
 Route::post('/thanks', [ContactController::class, 'store']);
+Route::get('/thanks', function () {
+    return view('thanks');
+});
 
-
-Route::middleware('auth')->group(function () {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'store']);
-Route::post('/admin', [AuthController::class, 'admin']);
+
+Route::middleware('auth')->group(function () {
+    Route::post('/admin', [AuthController::class, 'admin']);
 });

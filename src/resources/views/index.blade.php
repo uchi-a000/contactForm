@@ -11,14 +11,11 @@
 
 <header class="header">
     <div class="header__inner">
-        <a class="header__logo" href="/">
-            FashionablyLate
-        </a>
     </div>
 </header>
 <div class="contact-form__content">
     <div class="contact-form__heading">
-        <h2>Contact</h2>
+        <h2>お問い合わせ</h2>
     </div>
     <form class="form" action="/confirm" method="post">
         @csrf
@@ -48,17 +45,38 @@
                 <span class="form__label--item">性別</span>
                 <span class="form__label--required">※</span>
             </div>
-            <div class="form__group-content">
-                <div class="form__input--gender">
-                    <label><input type="radio" name="gender" value="男性" @if(1===(int)old('gender')) selected @endif />男性</label>
-                    <label><input type="radio" name="gender" value="女性" @if(1===(int)old('gender')) selected @endif />女性</label>
-                    <label><input type="radio" name="gender" value="その他" @if(1===(int)old('gender')) selected @endif />その他</label>
+            <div class="contact-form__group">
+                <label class="contact-form__label">
+                    性別<span class="contact-form__required">※</span>
+                </label>
+                <div class="contact-form__gender-inputs">
+                    <div class="contact-form__gender-option">
+                        <label class="contact-form__gender-label">
+                            <input class="contact-form__gender-input" name="gender" type="radio" id="male" value="1" {{
+                old('gender')==1 || old('gender')==null ? 'checked' : '' }}>
+                            <span class="contact-form__gender-text">男性</span>
+                        </label>
+                    </div>
+                    <div class="contact-form__gender-option">
+                        <label class="contact-form__gender-label">
+                            <input class="contact-form__gender-input" type="radio" name="gender" id="female" value="2" {{
+                old('gender')==2 ? 'checked' : '' }}>
+                            <span class="contact-form__gender-text">女性</span>
+                        </label>
+                    </div>
+                    <div class="contact-form__gender-option">
+                        <label class="contact-form__gender-label" for="other">
+                            <input class="contact-form__gender-input" type="radio" name="gender" id="other" value="3" {{
+                old('gender')==3 ? 'checked' : '' }}>
+                            <span class="contact-form__gender-text">その他</span>
+                        </label>
+                    </div>
                 </div>
-                <div class="form__error">
+                <p class="contact-form__error-message">
                     @error('gender')
                     {{ $message }}
                     @enderror
-                </div>
+                </p>
             </div>
         </div>
         <div class="form__group">
@@ -84,18 +102,12 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input--tel">
-                    <input type="tel" name="tel1" value="{{ old('tel1') }}" placeholder="080" /> -
-                    <input type="tel" name="tel2" value="{{ old('tel2') }}" placeholder="1234" /> -
-                    <input type="tel" name="tel3" value="{{ old('tel3') }}" placeholder="5678" />
+                    <input type="tel" name="tel_1" id="tel" value="{{ old('tel_1') }}" placeholder="080" /> -
+                    <input type="tel" name="tel_2" value="{{ old('tel_2') }}" placeholder="1234" /> -
+                    <input type="tel" name="tel_3" value="{{ old('tel_3') }}" placeholder="5678" />
                 </div>
                 <div class="form__error">
-                    @error('tel1')
-                    {{ $message }}
-                    @enderror
-                    @error('tel2')
-                    {{ $message }}
-                    @enderror
-                    @error('tel3')
+                    @error('tel')
                     {{ $message }}
                     @enderror
                 </div>
@@ -134,17 +146,18 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input--content">
-                    <select class="content-box_item" name="content">
+                    <select class="content-box_item" name="category_id">
                         <option value="">選択してください</option>
-                        <option name="content" value="1.商品のお届けについて" @if(1===(int)old('content')) selected @endif>1.商品のお届けについて</option>
-                        <option name="content" value="2.商品の交換について" @if(2===(int)old('content')) selected @endif>2.商品の交換について</option>
-                        <option name="content" value="3.商品トラブル" @if(3===(int)old('content')) selected @endif>3.商品トラブル</option>
-                        <option name="content" value="4.ショップへのお問い合わせ" @if(4===(int)old('content')) selected @endif>4.ショップへのお問い合わせ</option>
-                        <option name="content" value="5.その他" @if(4===(int)old('content')) selected @endif>5.その他</option>
+                        @foreach($categories as $category)
+                        <option value="{{ $category->id }}"
+                            @if($category->id == old('category_id')) selected @endif>
+                            {{$category->category}}
+                        </option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form__error">
-                    @error('content')
+                    @error('category_id')
                     {{ $message }}
                     @enderror
                 </div>
