@@ -6,14 +6,13 @@
 
 @section('content')
 <div class="thanks-page">
-    <div class="thanks-page__inner">
         <p class="thanks-page__message">お問い合わせありがとうございました</p>
-        <form class="thanks-page__form" action="/" method="get">
-            <button class="thanks-page__btn btn">HOME</button>
+        <form action="/" method="get">
+            <button class="thanks-page__btn">HOMEへ戻る</button>
         </form>
+    <div class="thanks-page-bg">
+        <span class="thanks-page-bg__text">Thank you</span>
     </div>
 </div>
-<div class="thanks-page-bg__inner">
-    <span class="thanks-page-bg__text">Thank you</span>
-</div>
+
 @endsection
