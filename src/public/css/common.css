@@ -6,7 +6,7 @@ body {
 body,
 textarea,
 input {
-    color: #333333;
+    color: #5d5b5b;
 }
 
 input,
@@ -17,7 +17,7 @@ textarea {
 
 textarea::placeholder,
 input::placeholder {
-    color: #333333;
+    color: #aaa;
 }
 
 .app {
@@ -32,7 +32,7 @@ input::placeholder {
     align-items: center;
     padding: 16px 0;
     height: 80px;
-    border: 1px solid #E0DFDE;
+    border: 1px solid #e0dfde;
     text-align: center;
     font-family: serif;
     grid-template-columns: repeat(3, 1fr);
@@ -48,9 +48,9 @@ input::placeholder {
 .header__link {
     margin: 0 auto;
     width: 80px;
-    border: 1px solid #D9C6B5;
-    background-color: #F0F0F0;
-    color: #D9C6B5;
+    border: 1px solid #949393;
+    background-color: #f0f0f0;
+    color: #949393;
     text-decoration: none;
     grid-column: 3;
 }
@@ -69,6 +69,7 @@ input::placeholder {
     font-weight: 100;
     font-size: 32px;
     font-family: serif;
+    color: #5d5b5b;
 }
 
 /* ボタン */
@@ -76,8 +77,8 @@ input::placeholder {
     display: block;
     padding: 8px 32px;
     border: none;
-    background-color: #82756A;
-    color: #FFF;
+    background-color: #949393;
+    color: #fff;
     font-size: 16px;
     cursor: pointer;
 }
@@ -90,7 +91,7 @@ input::placeholder {
 }
 
 .pagination li:not(.active) {
-    border: 1px solid #E0DFDE;
+    border: 1px solid #e0dfde;
     padding: 4px 12px;
 }
 
@@ -99,7 +100,7 @@ input::placeholder {
 }
 
 .pagination a {
-    color: #8B7969;
+    color: #8b7969;
     text-decoration: none;
 }
 
@@ -109,7 +110,8 @@ input::placeholder {
 
 .active {
     padding: 4px 12px;
-    border: 1px solid #8B7969;
-    background-color: #8B7969;
-    color: #FFF;
+    border: 1px solid #8b7969;
+    background-color: #8b7969;
+    color: #fff;
 }
+

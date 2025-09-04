@@ -26,7 +26,6 @@
 .contact-form__input {
     padding: 15px;
     background-color: #f4f4f4;
-    color: black;
     border: none;
 }
 
@@ -93,7 +92,7 @@
     left: 40%;
     width: 0;
     height: 0;
-    border-top: 12px solid #898888;
+    border-top: 12px solid #aaa;
     border-right: 12px solid transparent;
     border-left: 12px solid transparent;
     transform: translateY(-50%);
@@ -104,7 +103,7 @@
     margin-top: 20px;
     width: 50%;
     background-color: #f4f4f4;
-    color: #898888;
+    color: #aaa;
     -webkit-appearance: none;
     /* Safari/Chrome用 */
     -moz-appearance: none;

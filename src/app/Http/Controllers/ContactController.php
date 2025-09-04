@@ -30,7 +30,6 @@ class ContactController extends Controller
         // 3つの電話番号を結合して一つの文字列にする
         $tel = $request->tel_1 . $request->tel_2 . $request->tel_3;
 
-        // データベースに保存
         Contact::create([
             'category_id' => $request->category_id,
             'first_name' => $request->first_name,
