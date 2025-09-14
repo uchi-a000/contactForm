@@ -3,7 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Contact;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class ContactFactory extends Factory
 {
@@ -14,7 +16,6 @@ class ContactFactory extends Factory
      */
     protected $model = Contact::class;
 
-
     /**
      * Define the model's default state.
      *
@@ -23,18 +24,15 @@ class ContactFactory extends Factory
     public function definition()
     {
         return [
-            // 'category_id' =>Category::factory(),
-            'category_id' =>$this->faker->randomElement(['1.商品のお届けについて', '2.商品の交換について', '3.商品トラブル', '4.ショップへのお問い合わせ', '5.その他']),
-            'first_name' => $this->faker->firstName(),
-            'last_name' => $this->faker->lastName(),
-            'gender' => $this->faker->randomElement(['男性', '女性', 'その他',]),
-            'email' => $this->faker->email(),
-            'tel1' => $this->faker->randomNumber(3),
-            'tel2' => $this->faker->randomNumber(4),
-            'tel3' => $this->faker->randomNumber(4),
+            'category_id' => Category::inRandomOrder()->first()->id,
+            'first_name' => $this->faker->lastName(),
+            'last_name' => $this->faker->firstName(),
+            'gender' => $this->faker->randomElement([1, 2, 3]),
+            'email' => $this->faker->unique()->safeEmail(),
+            'tel' => $this->faker->phoneNumber(),
             'address' => $this->faker->address(),
             'building' => $this->faker->secondaryAddress(),
-            'detail' => $this->faker->text(10),
+            'detail' => $this->faker->realText(50),
         ];
     }
 }

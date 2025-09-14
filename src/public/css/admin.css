@@ -1,7 +1,7 @@
 input,
 select {
-    border: 1px solid #E3DED9;
-    color: #8B7969;
+    border: 1px solid #e3ded9;
+    color: #8b7969;
 }
 
 .admin__inner {
@@ -21,8 +21,8 @@ select {
     padding: 8px 12px;
     /* placeholderが表示される最低限の幅を最小値とする */
     min-width: 324px;
-    border: 1px solid #E3DED9;
-    background-color: #FBFBFB;
+    border: 1px solid #e3ded9;
+    background-color: #fbfbfb;
 }
 
 .search-form__gender,
@@ -37,7 +37,7 @@ select {
     right: 8%;
     width: 0;
     height: 0;
-    border-top: 12px solid #BEB1A6;
+    border-top: 12px solid #beb1a6;
     border-right: 8px solid transparent;
     border-left: 8px solid transparent;
     content: "";
@@ -48,7 +48,7 @@ select {
 .search-form__category-select {
     padding: 8px 12px;
     height: 100%;
-    background-color: #F4F4F4;
+    background-color: #f4f4f4;
 }
 
 .search-form__gender-select {
@@ -63,8 +63,8 @@ select {
     position: relative;
     padding: 8px 12px;
     min-width: 140px;
-    border: 1px solid #E3DED9;
-    background-color: #F4F4F4;
+    border: 1px solid #e3ded9;
+    background-color: #f4f4f4;
 }
 
 .search-form__date::-webkit-calendar-picker-indicator {
@@ -85,7 +85,7 @@ select {
     right: 12px;
     width: 0;
     height: 0;
-    border-top: 12px solid #BEB1A6;
+    border-top: 12px solid #beb1a6;
     border-right: 8px solid transparent;
     border-left: 8px solid transparent;
     content: "";
@@ -105,21 +105,13 @@ select {
 }
 
 .search-form__reset-btn {
-    background-color: #D9C6B5;
+    background-color: #d9c6b5;
 }
 
-/* エクスポートボタン */
-.export-form {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 32px;
-}
-
-.export__btn {
-    background-color: #E1DBD6;
-    color: #8B7969;
-    font-weight: 400;
+/* ページネーション */
+.admin__inner nav.flex svg {
+    width: 20px; /* SVGの幅を固定 */
+    height: 20px; /* SVGの高さを固定 */
 }
 
 /* テーブル */
@@ -130,7 +122,12 @@ select {
 }
 
 .admin__row {
-    border: 1px solid #E0DFDE;
+    border: 1px solid #e0dfde;
+}
+
+.admin__row--resolved {
+    background-color: #d7d4d4;
+    color: #999;
 }
 
 .admin__label,
@@ -149,17 +146,17 @@ select {
 }
 
 .admin__label {
-    background-color: #8B7969;
-    color: #FFF;
+    background-color: #8b7969;
+    color: #fff;
     text-align: left;
     font-weight: 400;
 }
 
 .admin__detail-btn {
     padding: 8px 12px;
-    border: 1px solid #D9C6B5;
-    background-color: #F0F0F0;
-    color: #D9C6B5;
+    border: 1px solid #d9c6b5;
+    background-color: #f0f0f0;
+    color: #d9c6b5;
     text-decoration: none;
 }
 
@@ -193,7 +190,7 @@ select {
     top: 50%;
     left: 50%;
     width: 50%;
-    border: 1px solid #8B7969;
+    border: 1px solid #8b7969;
     background-color: #fff;
     box-shadow: 4px 4px 4px rgba(139, 121, 105, 0.25);
     transform: translate(-50%, -50%);
@@ -201,7 +198,7 @@ select {
 
 .modal__content {
     position: relative;
-    padding: 64px 64px;
+    padding: 50px;
 }
 
 .modal-form__group {
@@ -215,10 +212,10 @@ select {
     font-weight: bold;
 }
 
-.modal-form__delete-btn {
+.modal-form__update-btn {
     margin: 64px auto 0;
-    background-color: #BA370D;
-    color: #FFF;
+    background-color: #5aa0e1;
+    color: #fff;
 }
 
 .modal__close-btn {
@@ -227,9 +224,17 @@ select {
     right: 32px;
     width: 32px;
     height: 32px;
-    border: 1px solid #8B7969;
+    border: 1px solid #8b7969;
     border-radius: 50%;
-    color: #8B7969;
+    color: #8b7969;
     text-align: center;
     text-decoration: none;
+}
+
+.resolve-label {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 20px;
 }

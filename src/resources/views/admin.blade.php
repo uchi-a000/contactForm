@@ -20,11 +20,11 @@
             @csrf
             <input class="search-form__keyword-input" type="text" name="keyword" placeholder="名前やメールアドレスを入力してください" value="{{request('keyword')}}">
             <div class="search-form__gender">
-                <select class="search-form__gender-select" name="gender" value="{{request('gender')}}">
-                    <option disabled selected>性別</option>
-                    <option value="1" @if( request('gender')==1 ) selected @endif>男性</option>
-                    <option value="2" @if( request('gender')==2 ) selected @endif>女性</option>
-                    <option value="3" @if( request('gender')==3 ) selected @endif>その他</option>
+                <select class="search-form__gender-select" name="gender">
+                    <option disabled {{ !request('gender') ? 'selected' : '' }}>性別</option>
+                    <option value="1" {{ request('gender') == 1 ? 'selected' : '' }}>男性</option>
+                    <option value="2" {{ request('gender') == 2 ? 'selected' : '' }}>女性</option>
+                    <option value="3" {{ request('gender') == 3 ? 'selected' : '' }}>その他</option>
                 </select>
             </div>
             <div class="search-form__category">
@@ -32,7 +32,7 @@
                     <option disabled selected>お問い合わせの種類</option>
                     @foreach($categories as $category)
                     <option value="{{ $category->id }}" @if( request('category_id')==$category->id ) selected @endif
-                        >{{$category->content }}
+                        >{{$category->category }}
                     </option>
                     @endforeach
                 </select>
@@ -44,37 +44,22 @@
             </div>
         </form>
 
-        <div class="export-form">
-            <form action="{{'/export?'.http_build_query(request()->query())}}" method="post">
-                @csrf
-                <input class="export__btn btn" type="submit" value="エクスポート">
-            </form>
-            <!-- ページネーション -->
-            {{ $contacts->links() }}
-        </div>
-
         <table class="admin__table">
             <tr class="admin__row">
                 <th class="admin__label">お名前</th>
                 <th class="admin__label">性別</th>
                 <th class="admin__label">メールアドレス</th>
                 <th class="admin__label">お問い合わせの種類</th>
+                <th class="admin__label">お問い合わせ日付</th>
                 <th class="admin__label"></th>
             </tr>
             @foreach($contacts as $contact)
-            <tr class="admin__row">
+            <tr class="admin__row {{$contact->is_resolved ? 'admin__row--resolved' : ''}}">
                 <td class="admin__data">{{$contact->first_name}}{{$contact->last_name}}</td>
-                <td class="admin__data">
-                    @if($contact->gender == 1)
-                    男性
-                    @elseif($contact->gender == 2)
-                    女性
-                    @else
-                    その他
-                    @endif
-                </td>
+                <td class="admin__data">{{$contact->gender_name}}</td>
                 <td class="admin__data">{{$contact->email}}</td>
-                <td class="admin__data">{{$contact->category->content}}</td>
+                <td class="admin__data">{{ optional($contact->category)->category ?? '未設定' }}</td>
+                <td class="admin__data">{{ $contact->created_at->format('Y-m-d') }}</td>
                 <td class="admin__data">
                     <a class="admin__detail-btn" href="#{{$contact->id}}">詳細</a>
                 </td>
@@ -84,7 +69,7 @@
                 <a href="#!" class="modal-overlay"></a>
                 <div class="modal__inner">
                     <div class="modal__content">
-                        <form class="modal__detail-form" action="/delete" method="post">
+                        <form class="modal__detail-form" action="/resolve" method="post">
                             @csrf
                             <div class="modal-form__group">
                                 <label class="modal-form__label" for="">お名前</label>
@@ -93,15 +78,7 @@
 
                             <div class="modal-form__group">
                                 <label class="modal-form__label" for="">性別</label>
-                                <p>
-                                    @if($contact->gender == 1)
-                                    男性
-                                    @elseif($contact->gender == 2)
-                                    女性
-                                    @else
-                                    その他
-                                    @endif
-                                </p>
+                                <p>{{$contact->gender_name}}</p>
                             </div>
 
                             <div class="modal-form__group">
@@ -111,7 +88,7 @@
 
                             <div class="modal-form__group">
                                 <label class="modal-form__label" for="">電話番号</label>
-                                <p>{{$contact->tell}}</p>
+                                <p>{{$contact->tel}}</p>
                             </div>
 
                             <div class="modal-form__group">
@@ -121,15 +98,23 @@
 
                             <div class="modal-form__group">
                                 <label class="modal-form__label" for="">お問い合わせの種類</label>
-                                <p>{{$contact->category->content}}</p>
+                                <p>{{ optional($contact->category)->category ?? '未設定' }}</p>
                             </div>
 
                             <div class="modal-form__group">
                                 <label class="modal-form__label" for="">お問い合わせ内容</label>
                                 <p>{{$contact->detail}}</p>
                             </div>
+                            <div class="modal-form__group">
+                                <label class="modal-form__label" for="">お問い合わせ日付</label>
+                                <p>{{ $contact->created_at->format('Y-m-d') }}</p>
+                            </div>
                             <input type="hidden" name="id" value="{{ $contact->id }}">
-                            <input class="modal-form__delete-btn btn" type="submit" value="削除">
+                            @if(!$contact->is_resolved)
+                            <input class="modal-form__update-btn btn" type="submit" value="解決済みに変更する">
+                            @else
+                            <p class="resolve-label">解決済み</p>
+                            @endif
                         </form>
                     </div>
                     <a href="#" class="modal__close-btn">×</a>
@@ -137,6 +122,9 @@
             </div>
             @endforeach
         </table>
+
+        <!-- ページネーション -->
+        {{ $contacts->links('vendor.pagination.custom') }}
     </div>
 </div>
 @endsection

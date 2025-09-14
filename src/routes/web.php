@@ -24,4 +24,6 @@ Route::get('/thanks', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [AdminController::class, 'admin']);
+    Route::get('/search', [AdminController::class, 'search']);
+    Route::post('/resolve', [AdminController::class, 'resolve']);
 });
