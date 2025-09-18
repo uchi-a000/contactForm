@@ -93,7 +93,7 @@
 
                             <div class="modal-form__group">
                                 <label class="modal-form__label" for="">住所</label>
-                                <p>{{$contact->address}}</p>
+                                <p>{{$contact->address}}{{ $contact->building }}</p>
                             </div>
 
                             <div class="modal-form__group">
