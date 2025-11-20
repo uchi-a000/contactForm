@@ -15,6 +15,7 @@ Docker ビルド
 2.  docker compose up -d --build
 
 Laravel 環境構築
+
 1.  docker compose exe php bash
 2.  composer install
 3.  .env.example ファイルから.env を作成し、環境変数を変更
@@ -22,13 +23,25 @@ Laravel 環境構築
 5.  php artisan migrate
 6.  php artisan db:seed
 
+## 機能
+
+基本的な web ページ作成の練習のために作成しました。
+
+1. お問い合わせフォーム
+2. ログイン画面
+3. ユーザー登録画面
+4. 管理者画面  
+   キーワード・性別・お問い合わせの種類・日付で検索可能  
+   詳細モーダル画面より解決済みに変更可能  
+   解決済みのデータは表の最後尾へ移動
+
 ## 使用環境
 
 ・PHP 8.0
 ・laravel 10.0
 ・MySQL 　 8.0
 
-
 ## URL
+
 ・環境開発:http://localhost/
 ・phpMyAdmin:http://localhost:8080/
